@@ -91,17 +91,17 @@
         
         /* Style for the image above greeting */
         #greetingImage {
-            max-width: 200px; /* Set maximum width */
-            margin-bottom: 20px; /* Spacing below the image */
-            border-radius: 10px; /* Rounded corners for the image */
+            max-width: 200px;
+            margin-bottom: 20px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
 
     <div id="fromPaulo">From Paulo</div>
-    <!-- Image above the greeting -->
-    <img id="greetingImage" src="1.jpg" alt="Greeting Image">
+    <!-- Image above the greeting, initially visible -->
+    <img id="greetingImage" src="hello.jpeg" alt="Greeting Image">
     
     <h1 id="greeting">Hi ate Geraldine, are you willing to go out with me?</h1>
     <button id="yesButton">Yes</button>
@@ -111,9 +111,10 @@
 
     <script>
         const noButton = document.getElementById('noButton');
-        const responseMessage = document.getElementById('responseMessage');
-        const question = document.getElementById('greeting');
         const yesButton = document.getElementById('yesButton');
+        const responseMessage = document.getElementById('responseMessage');
+        const greetingImage = document.getElementById('greetingImage');
+        const question = document.getElementById('greeting');
 
         const messageText = `I just wanted to say that I really admire you. You have this amazing way of making everyone around you feel happy and included.
 
@@ -131,6 +132,7 @@ Take care!`;
 
         yesButton.addEventListener('click', () => {
             question.textContent = 'Thank you, and I promise I will take care of you.';
+            greetingImage.style.display = 'none'; // Hide the image after "Yes" is clicked
             noButton.style.display = 'none';
             yesButton.style.display = 'none';
             typeMessage();
