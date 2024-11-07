@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will You Go Out with Me?</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+        body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: 100vh;
             background-color: #ffcccb; /* Lemonade pink background */
             text-align: center;
             overflow: hidden; /* Prevents scrollbars when hearts are animated */
@@ -23,11 +20,11 @@
         }
 
         @keyframes colorChange {
-            0% { background-color: #ffcccb; }
-            25% { background-color: #ffb3c1; }
-            50% { background-color: #ff99cc; }
-            75% { background-color: #ff80b3; }
-            100% { background-color: #ff6699; }
+            0% { background-color: #ffcccb; }  /* Light pink */
+            25% { background-color: #ffb3c1; }  /* Lighter pink */
+            50% { background-color: #ff99cc; }  /* Medium light pink */
+            75% { background-color: #ff80b3; }  /* Soft pink */
+            100% { background-color: #ff6699; } /* Soft pink */
         }
 
         #yesButton, #noButton {
@@ -51,17 +48,17 @@
         }
 
         #responseMessage {
-            white-space: pre-wrap;
-            font-size: 22px;
-            color: #2c3e50;
+            white-space: pre-wrap; /* Allows the message to keep line breaks */
+            font-size: 22px; /* Increased font size */
+            color: #2c3e50; /* Darker color for visibility */
             margin-top: 20px;
-            visibility: hidden;
+            visibility: hidden; /* Start hidden for typing effect */
         }
 
         .heart {
             position: absolute;
             font-size: 24px;
-            pointer-events: none;
+            pointer-events: none; /* Prevents interaction */
         }
 
         @keyframes float {
@@ -81,21 +78,22 @@
             top: 10px;
             left: 10px;
             font-size: 18px;
-            color: #2c3e50;
+            color: #2c3e50; /* Dark color for visibility */
         }
 
         #credits {
             position: absolute;
             bottom: 10px;
             right: 10px;
-            font-size: 14px;
-            color: #2c3e50;
-            cursor: pointer;
+            font-size: 14px; /* Smaller font size for credits */
+            color: #2c3e50; /* Dark color for visibility */
+            cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
         }
     </style>
 </head>
 <body>
-    <!-- Background music added here -->
+
+    <!-- Background Music -->
     <audio autoplay loop>
         <source src="CpDay.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -111,7 +109,7 @@
     <script>
         const noButton = document.getElementById('noButton');
         const responseMessage = document.getElementById('responseMessage');
-        const question = document.getElementById('greeting');
+        const question = document.getElementById('greeting'); // Changed to reference the greeting
         const yesButton = document.getElementById('yesButton');
 
         const messageText = `I just wanted to say that I really admire you. You have this amazing way of making everyone around you feel happy and included.
@@ -129,11 +127,12 @@ Take care!`;
         });
 
         yesButton.addEventListener('click', () => {
-            question.textContent = 'Tencyu for your time, see you soon ❤️.';
-            noButton.style.display = 'none';
-            yesButton.style.display = 'none';
-            typeMessage();
-            createFloatingHearts();
+            question.textContent = 'Tencyu for your time, see you soon ❤️.'; // Update greeting
+            noButton.style.display = 'none'; // Hide the no button
+            yesButton.style.display = 'none'; // Hide the yes button
+            typeMessage(); // Start typing the message
+            createFloatingHearts(); // Create floating heart effects
+            playCelebrationSound(); // Play sound after clicking "Yes"
         });
 
         function moveButton(button) {
@@ -145,19 +144,19 @@ Take care!`;
         }
 
         function typeMessage() {
-            responseMessage.style.visibility = 'visible';
-            responseMessage.textContent = '';
+            responseMessage.style.visibility = 'visible'; // Show the message element
+            responseMessage.textContent = ''; // Clear previous text
             let index = 0;
 
             function type() {
                 if (index < messageText.length) {
                     responseMessage.textContent += messageText.charAt(index);
                     index++;
-                    setTimeout(type, 30);
+                    setTimeout(type, 30); // Type each character with a faster delay
                 }
             }
 
-            type();
+            type(); // Start typing
         }
 
         function createFloatingHearts() {
@@ -166,15 +165,21 @@ Take care!`;
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.fontSize = Math.random() * 30 + 20 + 'px';
-                heart.style.animation = `float 2s ease-in forwards`;
+                heart.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                heart.style.fontSize = Math.random() * 30 + 20 + 'px'; // Random size
+                heart.style.animation = `float 2s ease-in forwards`; // Float animation
                 document.body.appendChild(heart);
 
+                // Remove the heart after the animation ends
                 heart.addEventListener('animationend', () => {
                     heart.remove();
                 });
-            }, 500);
+            }, 500); // Create a new heart every 500 milliseconds
+        }
+
+        function playCelebrationSound() {
+            const audio = new Audio('https://example.com/celebration-sound.mp3'); // Replace with a valid audio URL
+            audio.play();
         }
     </script>
 
